@@ -1,12 +1,11 @@
-
-
 <?php
 // Include config file
-require_once "config.php";
+require_once "config2.php";
 
 // Define variables and initialize with empty values
 $username = $email = $password = "";
 $username_err = $email_err = $password_err = "";
+
 
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -36,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($username_err) && empty($email_err) && empty($password_err)) {
 
         // Prepare an INSERT statement
-        $sql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO users1 (username, email, password) VALUES (?, ?, ?)";
 
         if ($stmt = $conn->prepare($sql)) {
             // Bind variables to the prepared statement as parameters
@@ -64,8 +63,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 }
 ?>
-
-
-
-
-

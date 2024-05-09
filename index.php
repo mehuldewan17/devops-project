@@ -34,7 +34,7 @@
           <a class="nav-link" href="products.php">Contact</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="products.php">My Cart</a>
+          <a class="nav-link" href="cart.php">My Cart</a>
         </li>
         
           </ul>
@@ -68,7 +68,7 @@
     <p>Astrology has been practiced for centuries and continues to hold significance in many cultures around the world. By studying the positions and movements of celestial bodies, astrology offers profound insights into personality traits, relationships, career paths, and life events. It provides a symbolic language that helps individuals gain deeper self-awareness, understand their purpose in life, and make informed decisions.</p>
 
     <h2>Our Approach</h2>
-    <p>At [Your Astrology Service], we believe in the transformative power of astrology to guide and inspire positive change. Our approach is holistic, integrating traditional astrological techniques with modern insights and intuitive guidance. Whether you're seeking clarity on love and relationships, career direction, or personal growth, we are here to support you on your journey.</p>
+    <p>At Astosite, we believe in the transformative power of astrology to guide and inspire positive change. Our approach is holistic, integrating traditional astrological techniques with modern insights and intuitive guidance. Whether you're seeking clarity on love and relationships, career direction, or personal growth, we are here to support you on your journey.</p>
 </div>
   </body>
 </html>

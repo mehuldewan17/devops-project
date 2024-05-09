@@ -21,6 +21,12 @@
             max-width: 100%;
             height: 500px;
         }
+
+        .review-cart-btn {
+            clear: both;
+            text-align: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -56,5 +62,10 @@
         }
         ?>
     </div>
+     <!-- "Review Cart" button -->
+     <div class="review-cart-btn">
+        <a href="cart.php" class="btn btn-primary">Review Cart</a>
+    </div>
+
 </body>
 </html>

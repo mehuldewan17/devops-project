@@ -1,30 +1,59 @@
 <?php
-session_start(); // Start session to access session variables
+session_start();
+
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    // Redirect to login page if user is not logged in
+    header("Location: login.php");
+    exit();
+}
+
+// Retrieve user_id from session
+$user_id = $_SESSION['user_id'];
 
 // Check if product_id is submitted via POST
 if (isset($_POST['product_id'])) {
     $product_id = $_POST['product_id'];
 
-    // Initialize or retrieve the shopping cart array in the session
-    if (!isset($_SESSION['cart'])) {
-        $_SESSION['cart'] = array(); // Initialize cart if not exists
+    // Establish a database connection
+    $dbHost = "localhost";
+    $dbUser = "root";
+    $dbPass = "";
+    $dbName = "astrology_db";
+
+    $conn = new mysqli($dbHost, $dbUser, $dbPass, $dbName);
+
+    // Check the database connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
     }
 
-    // Add the product to the cart (you can modify this logic as per your needs)
-    // Here, we use the product_id as the key and store the quantity as the value
-    if (isset($_SESSION['cart'][$product_id])) {
-        // If product already exists in cart, increment the quantity
-        $_SESSION['cart'][$product_id] += 1;
+    // Prepare and execute SQL query to insert into cart_items
+    $stmt = $conn->prepare("INSERT INTO cart_items (user_id, product_id) VALUES (?, ?)");
+
+    // Check if the prepared statement was successfully created
+    if ($stmt) {
+        // Bind parameters and execute the statement
+        $stmt->bind_param("ii", $user_id, $product_id);
+
+        if ($stmt->execute()) {
+            // Cart item added successfully, redirect back to products page
+            header("Location: products.php");
+            exit();
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+
+        // Close statement
+        $stmt->close();
     } else {
-        // If product does not exist in cart, add it with quantity = 1
-        $_SESSION['cart'][$product_id] = 1;
+        echo "Error: Unable to prepare statement.";
     }
 
-    // Redirect back to products page or any other page after adding to cart
-    header("Location: products.php");
-    exit();
+    // Close database connection
+    $conn->close();
 } else {
-    // Handle invalid requests (e.g., direct access to add_to_cart.php)
+    // Handle invalid requests
     echo "Invalid request";
 }
 ?>
