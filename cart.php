@@ -1,3 +1,34 @@
+<?php
+// Ensure that there is no whitespace or output before session_start()
+session_start();
+
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    // Redirect to login page if user is not logged in
+    header("Location: login.php");
+    exit();
+}
+
+// Establish a database connection (assuming you've already included database credentials)
+require_once "config2.php";
+
+// Retrieve user_id from session
+$user_id = $_SESSION['user_id'];
+
+// Prepare and execute SQL query to retrieve cart items
+$sql = "SELECT ci.id, p.name, p.price, p.image_url 
+        FROM cart_items ci 
+        INNER JOIN products p ON ci.product_id = p.id 
+        WHERE ci.user_id = $user_id";
+
+$result = $conn->query($sql);
+
+// Check if the query was executed successfully
+if ($result === false) {
+    die("Error executing query: " . $conn->error);
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,41 +94,6 @@
         <h2>My Cart</h2>
 
         <?php
-        session_start();
-
-        // Check if user is logged in
-        if (!isset($_SESSION['user_id'])) {
-            // Redirect to login page if user is not logged in
-            header("Location: login.php");
-            exit();
-        }
-
-        // Retrieve user_id from session
-        $user_id = $_SESSION['user_id'];
-
-        // Establish a connection to your MySQL database
-        $dbHost = "localhost";
-        $dbUser = "root";
-        $dbPass = "";
-        $dbName = "astrology_db";
-
-        $conn = new mysqli($dbHost, $dbUser, $dbPass, $dbName);
-
-        // Check the database connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-
-        // Prepare and execute SQL query to retrieve cart items
-        $sql = "SELECT ci.id, p.name, p.price, p.image_url FROM cart_items ci INNER JOIN products p ON ci.product_id = p.id WHERE ci.user_id = $user_id";
-
-        $result = $conn->query($sql);
-
-        // Check if the query was executed successfully
-        if ($result === false) {
-            die("Error executing query: " . $conn->error);
-        }
-
         // Display cart items
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {

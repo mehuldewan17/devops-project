@@ -18,12 +18,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $country = $_POST['country'];
 
     // Establish database connection
-    $dbHost = "localhost";
-    $dbUser = "root";
-    $dbPass = "";
-    $dbName = "astrology_db";
 
-    $conn = new mysqli($dbHost, $dbUser, $dbPass, $dbName);
+     $host = "database"; // Docker service name for the MySQL container
+     $username = "devuser"; // MySQL username
+     $password = "root"; // MySQL password
+     $database = "devops"; // MySQL database name
+     
+     $conn = mysqli_connect($host, $username, $password, $database);
 
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);

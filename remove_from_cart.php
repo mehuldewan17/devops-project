@@ -13,12 +13,15 @@ if (isset($_POST['item_id'])) {
     $item_id = $_POST['item_id'];
 
     // Establish a connection to your MySQL database
-    $dbHost = "localhost";
-    $dbUser = "root";
-    $dbPass = "";
-    $dbName = "astrology_db";
-
-    $conn = new mysqli($dbHost, $dbUser, $dbPass, $dbName);
+    $host = "database"; // Docker service name for the MySQL container
+    $username = "devuser"; // MySQL username
+    $password = "root"; // MySQL password
+    $database = "devops"; // MySQL database name
+    
+    $conn = mysqli_connect($host, $username, $password, $database);
+    if (!$conn) {
+        die("Failed to connect to MySQL: " . mysqli_connect_error());
+    }
 
     // Check the database connection
     if ($conn->connect_error) {

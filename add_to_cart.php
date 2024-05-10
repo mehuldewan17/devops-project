@@ -16,12 +16,12 @@ if (isset($_POST['product_id'])) {
     $product_id = $_POST['product_id'];
 
     // Establish a database connection
-    $dbHost = "localhost";
-    $dbUser = "root";
-    $dbPass = "";
-    $dbName = "astrology_db";
-
-    $conn = new mysqli($dbHost, $dbUser, $dbPass, $dbName);
+    $host = "database"; // Docker service name for the MySQL container
+    $username = "devuser"; // MySQL username
+    $password = "root"; // MySQL password
+    $database = "devops"; // MySQL database name
+    
+    $conn = mysqli_connect($host, $username, $password, $database);
 
     // Check the database connection
     if ($conn->connect_error) {

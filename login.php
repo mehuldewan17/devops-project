@@ -1,19 +1,11 @@
 <?php
 session_start();
+require_once "config2.php";
 
 // Retrieve form data
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Establish a connection to your MySQL database
-    $dbHost = "localhost";
-    $dbUser = "root";
-    $dbPass = "";
-    $dbName = "astrology_db";
 
-    $conn = new mysqli($dbHost, $dbUser, $dbPass, $dbName);
-
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
 
     // Retrieve form data
     $username = $_POST['username'];
@@ -45,4 +37,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Close the database connection
     $conn->close();
 }
-?>

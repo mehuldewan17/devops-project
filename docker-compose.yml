@@ -1,0 +1,36 @@
+version: '3.7'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: devops-2-app
+    restart: unless-stopped
+    ports:
+      - "8060:80"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - database
+
+  database:
+    image: mysql:latest
+    container_name: devops-2-mysql-db
+    restart: unless-stopped
+    ports:
+      - "3305:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: devops
+      MYSQL_USER: devuser
+      MYSQL_PASSWORD: root
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: devops-2-phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "8086:80"
+    environment:
+      PMA_HOST: database
+      MYSQL_ROOT_PASSWORD: root
